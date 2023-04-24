@@ -1,5 +1,5 @@
 import { Component } from "react";
-import ImageGalleryItem from "../ImageGalleryItem";
+import ImageGalleryItem from "./ImageGalleryItem";
 import Loader from "../Loader";
 import Button from "../Button";
 import s from "./ImageGallery.module.css";
@@ -70,12 +70,15 @@ class ImageGallery extends Component {
       return (
         <>
           <ul className={s.imageGallery}>
-            {hits.map((hit) => (
-              <ImageGalleryItem
-                key={hit.id}
-                hit={hit}
-                onClick={this.props.onClick}
-              />
+            {hits.map(({ id, webformatURL, largeImageURL, tags }) => (
+              <li className={s.gallery_item} key={id}>
+                <ImageGalleryItem
+                  smallImg={webformatURL}
+                  largeImg={largeImageURL}
+                  alt={tags}
+                  onClick={this.props.onClick}
+                />
+              </li>
             ))}
           </ul>
           {this.state.hits.length !== 0 ? (
